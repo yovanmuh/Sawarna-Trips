@@ -3,634 +3,497 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Itinerary Liburan Sawarna (Slow Morning Fit)</title>
+    <title>Sawarna Road Trip Guide</title>
     <style>
-        /* --- RESET & VARIABLE UTAMA --- */
-        :root {
-            --bg-main: #f8fafc;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --accent-h1: #2563eb;
-            --accent-h2: #0d9488;
-            --accent-h3: #d97706;
-            --card-bg: #ffffff;
-            --border-color: #e2e8f0;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
-            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
-            --transition-fast: all 0.2s ease;
-        }
-
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            line-height: 1.6;
-            padding-bottom: 4rem;
+            background-color: #f4f7f6;
+            color: #333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* --- HEADER --- */
-        header {
-            background: linear-gradient(135deg, #1e3a8a 0%, #0d9488 100%);
-            color: #ffffff;
-            padding: 3rem 1.5rem 2rem 1.5rem;
+        .header {
             text-align: center;
-            position: relative;
-            box-shadow: var(--shadow-md);
-            margin-bottom: 2rem;
-            overflow: hidden;
+            background: linear-gradient(135deg, #008891, #005f73);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
 
-        header h1 {
-            font-size: 2.25rem;
-            font-weight: 800;
-            letter-spacing: -0.025em;
-            margin-bottom: 0.5rem;
-            animation: fadeInDown 0.6s ease-out;
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
         }
 
-        header p {
-            color: #ccfbf1;
-            font-size: 1rem;
-            font-weight: 500;
-            animation: fadeInUp 0.6s ease-out 0.2s both;
-            margin-bottom: 1.5rem;
+        .header p {
+            font-size: 13px;
+            opacity: 0.9;
         }
 
-        /* --- ANIMASI MOTOR NMAX UPGRADE --- */
+        /* --- FOTO PROFIL COUPLE (UKURAN GEMBUL) --- */
         .bike-animation-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 80px;
-            margin-top: 1.5rem;
+            height: 180px;
+            margin-top: 1rem;
             position: relative;
         }
 
-        .nmax-bike {
-            position: relative;
-            width: 120px;
-            height: 70px;
-            animation: rideEffect 2s infinite ease-in-out;
-        }
-
-        /* Bodi NMAX Merah Matte Modern */
-        .nmax-body {
-            position: absolute;
-            bottom: 12px;
-            left: 15px;
-            width: 85px;
-            height: 36px;
-            background: linear-gradient(145deg, #dc2626, #991b1b);
-            border-radius: 25px 45px 20px 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            z-index: 3;
-        }
-
-        /* Visor & Stang NMAX Tinggi */
-        .nmax-front {
-            position: absolute;
-            top: -15px;
-            right: -8px;
-            width: 28px;
-            height: 35px;
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
-            border-radius: 0 25px 5px 0;
-            transform: skewX(-18deg);
-        }
-        
-        .nmax-visor {
-            position: absolute;
-            top: -10px;
-            right: 4px;
-            width: 10px;
-            height: 20px;
-            background-color: rgba(15, 23, 42, 0.85);
-            border-radius: 0 8px 0 0;
-        }
-
-        /* Lampu Depan Menyala (Efek Nyata) */
-        .nmax-front::after {
-            content: '';
-            position: absolute;
-            bottom: 5px;
-            right: -4px;
-            width: 8px;
-            height: 8px;
-            background-color: #fde047;
+        .couple-photo {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
             border-radius: 50%;
-            box-shadow: 0 0 12px #fde047;
+            border: 4px solid #ffffff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            animation: floatEffect 3s infinite ease-in-out;
         }
 
-        /* Roda Bergaya Velg Racing */
-        .wheel {
-            position: absolute;
-            bottom: 0px;
-            width: 26px;
-            height: 26px;
-            background: radial-gradient(circle, #475569 30%, #1e293b 70%);
-            border: 4px dashed #cbd5e1;
-            border-radius: 50%;
-            animation: spin 0.4s infinite linear;
-            z-index: 2;
-        }
-        .wheel-left { left: 8px; }
-        .wheel-right { right: 8px; }
-
-        /* Pengendara Cowok (Jaket & Posisi Duduk Ergonomis) */
-        .rider-boy {
-            position: absolute;
-            top: -26px;
-            right: 28px;
-            width: 24px;
-            height: 42px;
-            background-color: #1e3a8a; 
-            border-radius: 12px 14px 5px 5px;
-            z-index: 4;
-            transform: rotate(5deg);
-        }
-        
-        .helmet-boy {
-            position: absolute;
-            top: -20px;
-            left: 4px;
-            width: 20px;
-            height: 20px;
-            background: linear-gradient(135deg, #334155, #0f172a);
-            border-radius: 50%;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            z-index: 5;
+        @keyframes floatEffect {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
 
-        /* Kaca Helm / Visor Cowok */
-        .helmet-boy::after {
-            content: '';
-            position: absolute;
-            top: 4px;
-            right: -2px;
-            width: 6px;
-            height: 8px;
-            background-color: #38bdf8;
-            border-radius: 0 3px 3px 0;
-        }
-
-        /* Penumpang Cewek (Memeluk/Bersandar Lembut) */
-        .rider-girl {
-            position: absolute;
-            top: -22px;
-            left: 32px;
-            width: 22px;
-            height: 38px;
-            background-color: #ec4899; 
-            border-radius: 12px 12px 5px 5px;
-            z-index: 3;
-            transform: rotate(-3deg);
-        }
-        
-        .helmet-girl {
-            position: absolute;
-            top: -16px;
-            left: 2px;
-            width: 19px;
-            height: 19px;
-            background: linear-gradient(135deg, #ffffff, #e2e8f0);
-            border-radius: 50%;
-            border: 1px solid #cbd5e1;
-            z-index: 5;
-        }
-
-        /* Knalpot Racing NMAX */
-        .exhaust {
-            position: absolute;
-            bottom: 8px;
-            left: -8px;
-            width: 32px;
-            height: 9px;
-            background: linear-gradient(to right, #334155, #64748b);
-            border-radius: 4px;
-            transform: rotate(-12deg);
-            z-index: 4;
-        }
-
-        /* Asap Knalpot Tipis */
-        .exhaust::before {
-            content: '';
-            position: absolute;
-            left: -10px;
-            top: 2px;
-            width: 6px;
-            height: 4px;
-            background-color: rgba(255,255,255,0.2);
-            border-radius: 50%;
-            box-shadow: -5px 0 5px rgba(255,255,255,0.1);
-        }
-
-        /* --- CONTAINER UTAMA --- */
-        main {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        /* --- CARD SEKSI HARI --- */
-        .day-section {
-            background-color: var(--card-bg);
-            border-radius: 1rem;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow-sm);
-            margin-bottom: 2.5rem;
+        /* --- WIDGET CONTAINER GENERAL --- */
+        .widget-card {
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 20px;
+            border-radius: 20px;
             overflow: hidden;
-            transition: var(--transition-fast);
         }
 
-        .day-section:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateY(-2px);
+        /* --- DAY CARDS --- */
+        .day-card {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
         }
 
         .day-header {
-            padding: 1.25rem 1.5rem;
-            color: #ffffff;
-            font-size: 1.25rem;
-            font-weight: 700;
+            padding: 15px 20px;
+            color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .day-1 .day-header { background: linear-gradient(90deg, #2563eb, #3b82f6); }
-        .day-2 .day-header { background: linear-gradient(90deg, #0d9488, #14b8a6); }
-        .day-3 .day-header { background: linear-gradient(90deg, #d97706, #f59e0b); }
+        .day-1 { background-color: #008891; }
+        .day-2 { background-color: #2a9d8f; }
+        .day-3 { background-color: #e76f51; }
 
-        .day-badge {
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
+        .day-header h2 {
+            font-size: 16px;
         }
 
-        /* --- TIMELINE CONTAINER --- */
+        .badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
         .timeline {
-            padding: 1.5rem;
-            position: relative;
+            padding: 20px;
         }
 
-        .timeline::before {
-            content: '';
-            position: absolute;
-            top: 1.5rem;
-            bottom: 1.5rem;
-            left: 2.25rem;
-            width: 2px;
-        }
-
-        .day-1 .timeline::before { background-color: #dbeafe; }
-        .day-2 .timeline::before { background-color: #ccfbf1; }
-        .day-3 .timeline::before { background-color: #fef3c7; }
-
-        /* --- TIMELINE ITEM / ROW --- */
-        .timeline-item {
-            position: relative;
-            padding-left: 3.5rem;
-            margin-bottom: 2rem;
+        .item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 18px;
             cursor: pointer;
-            user-select: none;
+            transition: all 0.2s ease;
+            position: relative;
+            padding-left: 30px;
         }
 
-        .timeline-item:last-child {
+        .item:last-child {
             margin-bottom: 0;
         }
 
-        .timeline-node {
+        .checkbox-custom {
             position: absolute;
-            left: 1.75rem;
-            top: 0.25rem;
-            width: 1rem;
-            height: 1rem;
+            left: 0;
+            top: 2px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
-            background-color: #ffffff;
-            border: 3px solid var(--border-color);
-            transform: translateX(-50%);
-            transition: var(--transition-fast);
-            z-index: 2;
+            border: 2px solid #ccc;
+            background: white;
+            transition: all 0.2s ease;
         }
 
-        .day-1 .timeline-item:hover .timeline-node { border-color: #2563eb; background-color: #2563eb; }
-        .day-2 .timeline-item:hover .timeline-node { border-color: #0d9488; background-color: #0d9488; }
-        .day-3 .timeline-item:hover .timeline-node { border-color: #d97706; background-color: #d97706; }
+        .item.completed .checkbox-custom {
+            background: #2a9d8f;
+            border-color: #2a9d8f;
+        }
 
-        .time-badge {
+        .item.completed .checkbox-custom::after {
+            content: '✓';
+            color: white;
+            font-size: 11px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+        }
+
+        .item-content {
+            flex: 1;
+        }
+
+        .time {
+            font-size: 11px;
+            font-weight: bold;
+            color: #888;
+            background: #eee;
+            padding: 2px 8px;
+            border-radius: 10px;
             display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 700;
-            background-color: #f1f5f9;
-            color: var(--text-main);
-            padding: 0.15rem 0.5rem;
-            border-radius: 4px;
-            margin-bottom: 0.25rem;
-            transition: var(--transition-fast);
+            margin-bottom: 4px;
         }
 
-        .activity-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #0f172a;
-            margin-bottom: 0.15rem;
-            transition: var(--transition-fast);
+        .title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 2px;
         }
 
-        .activity-desc {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            transition: var(--transition-fast);
+        .desc {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
         }
 
-        /* --- STATE DONE --- */
-        .timeline-item.done .timeline-node {
-            background-color: #10b981 !important;
-            border-color: #10b981 !important;
-            transform: scale(1.2) translateX(-40%);
-        }
-
-        .timeline-item.done .time-badge {
-            background-color: #d1fae5;
-            color: #065f46;
-        }
-
-        .timeline-item.done .activity-title {
-            color: var(--text-muted);
+        .item.completed .title, 
+        .item.completed .desc {
             text-decoration: line-through;
+            opacity: 0.5;
         }
 
-        .timeline-item.done .activity-desc {
-            color: #cbd5e1;
-            text-decoration: line-through;
+        .note-box {
+            background: #fff8e7;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin: 15px 20px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #856404;
         }
 
-        /* --- FOOTER --- */
-        footer {
+        .note-box strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .footer-tip {
             text-align: center;
-            padding: 2rem 1rem;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            border-top: 1px solid var(--border-color);
-            margin-top: 4rem;
-            background-color: #ffffff;
-        }
-
-        /* --- ANIMASI KEYFRAMES --- */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes spin {
-            100% { transform: rotate(-360deg); }
-        }
-
-        @keyframes rideEffect {
-            0%, 100% { transform: translateY(0) translateX(-8px); }
-            50% { transform: translateY(-4px) translateX(8px); }
-        }
-
-        /* --- RESPONSIF LAYAR --- */
-        @media (max-width: 640px) {
-            header { padding: 2rem 1rem 1.5rem 1rem; }
-            header h1 { font-size: 1.75rem; }
-            .timeline { padding: 1.25rem 1rem; }
-            .timeline::before { left: 1.5rem; }
-            .timeline-item { padding-left: 2.5rem; }
-            .timeline-node { left: 1.05rem; }
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 10px;
+            margin-bottom: 30px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Banner dengan Animasi NMAX Upgrade -->
-    <header>
+    <!-- 1. HEADER UTAMA -->
+    <div class="header">
         <h1>Itinerary Ke Sawarna</h1>
-        <p>Gunakan halaman ini sebagai panduan interaktif selama perjalanan motor Anda</p>
+        <p>Tak peduli seberapa jauh jalannya, asal tujuannya bersamamu, aku pasti bahagia ❤️</p>
         
-        <!-- Wadah Animasi Motor -->
+        <!-- FOTO PROFIL COUPLE -->
         <div class="bike-animation-container">
-            <div class="nmax-bike">
-                <div class="helmet-girl"></div>
-                <div class="rider-girl"></div>
-                <div class="helmet-boy"></div>
-                <div class="rider-boy"></div>
-                <div class="nmax-body">
-                    <div class="nmax-front">
-                        <div class="nmax-visor"></div>
-                    </div>
-                    <div class="exhaust"></div>
-                </div>
-                <div class="wheel wheel-left"></div>
-                <div class="wheel wheel-right"></div>
+            <img src="foto.jpg" class="couple-photo" alt="Foto Kebersamaan">
+        </div>
+    </div>
+
+    <!-- 2. ⏳ COUNTDOWN TIMER -->
+    <div class="widget-card" style="
+        text-align: center; 
+        padding: 20px; 
+        background: linear-gradient(135deg, #ffffff, #fff5f8);
+        border: 2px solid #ffe1eb;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    ">
+        <p style="font-size: 14px; color: #ff6b81; font-weight: bold; margin: 0 0 12px 0;">
+            ⏰ Hitung Mundur Menuju Sawarna Trip 🛵💨
+        </p>
+        <div id="countdown-box" style="display: flex; justify-content: center; gap: 10px;">
+            <div style="background: #ff6b81; color: white; padding: 10px; border-radius: 12px; min-width: 55px;">
+                <span id="cd-days" style="font-size: 20px; font-weight: bold; display: block;">00</span>
+                <span style="font-size: 10px; text-transform: uppercase;">Hari</span>
+            </div>
+            <div style="background: #ff6b81; color: white; padding: 10px; border-radius: 12px; min-width: 55px;">
+                <span id="cd-hours" style="font-size: 20px; font-weight: bold; display: block;">00</span>
+                <span style="font-size: 10px; text-transform: uppercase;">Jam</span>
+            </div>
+            <div style="background: #ff6b81; color: white; padding: 10px; border-radius: 12px; min-width: 55px;">
+                <span id="cd-minutes" style="font-size: 20px; font-weight: bold; display: block;">00</span>
+                <span style="font-size: 10px; text-transform: uppercase;">Menit</span>
+            </div>
+            <div style="background: #ff6b81; color: white; padding: 10px; border-radius: 12px; min-width: 55px;">
+                <span id="cd-seconds" style="font-size: 20px; font-weight: bold; display: block;">00</span>
+                <span style="font-size: 10px; text-transform: uppercase;">Detik</span>
             </div>
         </div>
-    </header>
+        <p id="cd-message" style="font-size: 12px; color: #777; margin: 12px 0 0 0; font-style: italic;">
+            Gak sabar mau jalan-jalan berdua sama kamu! 💖
+        </p>
+    </div>
 
-    <!-- Konten Utama -->
-    <main>
-
-        <!-- HARI 1 -->
-        <section class="day-section day-1">
-            <div class="day-header">
-                <h2>Hari 1: Karang Bokor & Ikon Tanjung Layar</h2>
-                <span class="day-badge">EKSPLORASI</span>
+    <!-- 3. 🗺️ WIDGET RUTE GOOGLE MAPS -->
+    <div class="widget-card" style="
+        text-align: center; 
+        padding: 22px 20px; 
+        background: linear-gradient(135deg, #eef9ff, #ffffff);
+        border: 2px solid #34a853;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    ">
+        <div style="margin-bottom: 12px;">
+            <span style="font-size: 26px;">🛵🗺️</span>
+            <h3 style="font-size: 17px; color: #1e293b; margin: 6px 0 4px 0; font-weight: bold;">
+                Rute Perjalanan Motoran Kita
+            </h3>
+            <p style="font-size: 13px; color: #64748b; margin: 0;">
+                Titik Kumpul: <b>Palima, Serang</b> ➔ <b>Pantai Sawarna</b>
+            </p>
+        </div>
+        <div style="display: flex; justify-content: space-around; background: #ffffff; padding: 12px; border-radius: 14px; margin: 14px 0; border: 1px solid #e2e8f0;">
+            <div>
+                <span style="font-size: 10px; color: #94a3b8; display: block; font-weight: bold;">JARAK</span>
+                <span style="font-size: 14px; color: #0f172a; font-weight: bold;">± 140 km</span>
             </div>
-            <div class="timeline">
-                
-                <div class="timeline-item" onclick="toggleTask(this)">
-                    <div class="timeline-node"></div>
-                    <div class="time-badge">05.00 – 09.30</div>
-                    <div class="activity-title">Berangkat Motoran</div>
-                    <div class="activity-desc">Jalur Serang – Pandeglang – Gunung Kencana – Malingping – Bayah – Sawarna.</div>
-                </div>
-
-                <div class="timeline-item" onclick="toggleTask(this)">
-                    <div class="timeline-node"></div>
-                    <div class="time-badge">09.30 – 11.30</div>
-                    <div class="activity-title">Masuk dan Wisata di Karang Bokor Sawarna</div>
-                    <div class="activity-desc">(Foto di jembatan tebing).</div>
-                </div>
-
-                <div class="timeline-item" onclick="toggleTask(this)">
-                    <div class="timeline-node"></div>
-                    <div class="time-badge">11.30 – 12.30</div>
-                    <div class="activity-title">Makan Siang</div>
-                    <div class="activity-desc">Di area luar/sekitar Sawarna.</div>
-                </div>
-
-                <div class="timeline-item" onclick="toggleTask(this)">
-                    <div class="timeline-node"></div>
-                    <div class="time-badge">12.30 – 13.00</div>
-                    <div class="activity-title">Menuju Penginapan Pertama</div>
-                    <div class="activity-desc">(Area Ciantir/Tanjung Layar), check-in, mandi, dan istirahat.</div>
-                </div>
-
-                <div class="timeline-item" onclick="toggleTask(this)">
-                    <div class="timeline-node"></div>
-                    <div class="time-badge">15.30 – 18.00</div>
-                    <div class="activity-title">Ke Pantai Tanjung Layar</div>
-                    <div class="activity-desc">(Berjalan kaki/motor ke area karang saat air surut untuk foto berdua & menikmati sunset).</div>
-                </div>
-
-                <div class="timeline-item" onclick="toggleTask(this)">
-                    <div class="timeline-node"></div>
-                    <div class="time-badge">19.00 – Selesai</div>
-                    <div class="activity-title">Makan Malam & Istirahat Total</div>
-                    <div class="activity-desc">Di sekitar penginapan.</div>
-                </div>
-
+            <div style="border-right: 1px solid #e2e8f0;"></div>
+            <div>
+                <span style="font-size: 10px; color: #94a3b8; display: block; font-weight: bold;">EST. WAKTU</span>
+                <span style="font-size: 14px; color: #0f172a; font-weight: bold;">± 3.5 - 4 Jam</span>
             </div>
-        </section>
-
-        <!-- HARI 2 -->
-        <section class="day-section day-2">
-            <div class="day-header">
-                <h2>Hari 2: Karang Taraje & Pindah Cabin Legon Pari</h2>
-                <span class="day-badge">PINDAH SPOT</span>
+            <div style="border-right: 1px solid #e2e8f0;"></div>
+            <div>
+                <span style="font-size: 10px; color: #94a3b8; display: block; font-weight: bold;">JALUR</span>
+                <span style="font-size: 12px; color: #34a853; font-weight: bold;">Saketi - Malingping</span>
             </div>
-            <div class="timeline">
+        </div>
+        <a href="https://www.google.com/maps/dir/Palima+-+Pasang+Teneng,+Kabupaten+Serang,+Banten,+Indonesia/Sawarna+Beach/data=!4m14!4m13!1m5!1m1!19sChIJK9hBrfspQi4RABZYZ0gSHmU!2m2!1d105.9693291!2d-6.2072822!1m5!1m1!19sChIJpwTX8DCQQi4RmeEjHqUqVd8!2m2!1d106.3068282!2d-6.9844877999999992!3e9" target="_blank" style="display: inline-block; padding: 12px 22px; background: #34a853; color: white; font-weight: bold; font-size: 13px; text-decoration: none; border-radius: 50px; box-shadow: 0 4px 12px rgba(52, 168, 83, 0.3);">
+            📍 Buka Rute Google Maps Lengkap
+        </a>
+    </div>
 
-                <div class="timeline-item" onclick="toggleTask(this)">
-                    <div class="timeline-node"></div>
-                    <div class="time-badge">05.30 – 06.00</div>
-                    <div class="activity-title">Bangun Pagi dan Bersiap</div>
-                    <div class="activity-desc">Persiapan agenda pagi hari.</div>
+    <!-- 4. HARI 1 -->
+    <div class="day-card">
+        <div class="day-header day-1">
+            <h2>Hari 1: Karang Bokor & Ikon Tanjung Layar</h2>
+            <span class="badge">EKSPLORASI</span>
+        </div>
+        <div class="timeline">
+            <div class="item" onclick="toggleItem(this, 'item1')">
+                <div class="checkbox-custom"></div>
+                <div class="item-content">
+                    <span class="time">05.00 – 09.30</span>
+                    <div class="title">Berangkat Motoran</div>
+                    <div class="desc">Jalur Serang – Pandeglang – Gunung Kencana – Malingping – Bayah – Sawarna.</div>
                 </div>
-
-                <div class="timeline-item" onclick="toggleTask(this)">
-                    <div class="timeline-node"></div>
-                    <div class="time-badge">06.00 – 08.00</div>
-                    <div class="activity-title">Berkendara ke Pantai Karang Taraje</div>
-                    <div class="activity-desc">(Melihat ombak air terjun karang saat pagi).</div>
-                </div>
-
-                <div class="timeline-item" onclick="toggleTask(this)">
-                    <div class="timeline-node"></div>
-                    <div class="time-badge">08.00 – 09.30</div>
-                    <div class="activity-title">"Slow Morning" & Ngopi</div>
-                    <div class="activity-desc">Menikmati pagi yang santai di teras penginapan pertama sembari menyeduh kopi/teh sachet bawaan sendiri dan menyortir foto-foto kemarin.</div>
-                </div>
-
-                <div class="timeline-item" onclick="toggleTask(this)">
-                    <div class="timeline-node"></div>
-                    <div class="time-badge">10.00 – 11.30</div>
-                    <div class="activity-title">Kembali ke Penginapan Pertama</div>
-                    <div class="activity-desc">Bersiap, packing, dan check-out.</div>
-                </div>
-
-                <div class="timeline-item" onclick="toggleTask(this)">
-                    <div class="timeline-node"></div>
-                    <div class="time-badge">11.30 – 12.30</div>
-                    <div class="activity-title">Perjalanan dan Check-in</div>
-                    <div class="activity-desc">Menuju ke Cabin Legon Pari.</div>
-                </div>
-
-                <div class="timeline-item" onclick="toggleTask(this)">
-                    <div class="timeline-node"></div>
-                    <div class="time-badge">12.30 – 15.30</div>
-                    <div class="activity-title">Makan Siang dan Istirahat Siang</div>
-                    <div class="activity-desc">Di area Legon Pari.</div>
-                </div>
-
-                <div class="timeline-item" onclick="toggleTask(this)">
-                    <div class="timeline-node"></div>
-                    <div class="time-badge">16.00 – 18.00</div>
-                    <div class="activity-title">Menuju Pantai Ciantir</div>
-                    <div class="activity-desc">Untuk menikmati sunset terakhir di hamparan pasir putih yang luas.</div>
-                </div>
-
-                <div class="timeline-item" onclick="toggleTask(this)">
-                    <div class="timeline-node"></div>
-                    <div class="time-badge">18.30 – Selesai</div>
-                    <div class="activity-title">Kembali ke Legon Pari</div>
-                    <div class="activity-desc">Makan malam dan istirahat.</div>
-                </div>
-
             </div>
-        </section>
-
-        <!-- HARI 3 -->
-        <section class="day-section day-3">
-            <div class="day-header">
-                <h2>Hari ke 3: Sunrise Legon Pari & Pulang</h2>
-                <span class="day-badge">RUTE PULANG</span>
+            <div class="item" onclick="toggleItem(this, 'item2')">
+                <div class="checkbox-custom"></div>
+                <div class="item-content">
+                    <span class="time">09.30 – 11.30</span>
+                    <div class="title">Masuk dan Wisata di Karang Bokor Sawarna</div>
+                    <div class="desc">(Foto di jembatan tebing).</div>
+                </div>
             </div>
-            <div class="timeline">
-
-                <div class="timeline-item" onclick="toggleTask(this)">
-                    <div class="timeline-node"></div>
-                    <div class="time-badge">05.00 – 07.00</div>
-                    <div class="activity-title">Pantai Legon Pari</div>
-                    <div class="activity-desc">(Cukup jalan kaki dari cabin untuk mengejar sunrise dan menikmati pantai teluk yang tenang).</div>
+            <div class="item" onclick="toggleItem(this, 'item3')">
+                <div class="checkbox-custom"></div>
+                <div class="item-content">
+                    <span class="time">11.30 – 12.30</span>
+                    <div class="title">Makan Siang</div>
+                    <div class="desc">Di area luar/sekitar Sawarna.</div>
                 </div>
-
-                <div class="timeline-item" onclick="toggleTask(this)">
-                    <div class="timeline-node"></div>
-                    <div class="time-badge">07.30 – 09.00</div>
-                    <div class="activity-title">Sarapan dan Mandi</div>
-                    <div class="activity-desc">Persiapan sebelum check-out.</div>
-                </div>
-
-                <div class="timeline-item" onclick="toggleTask(this)">
-                    <div class="timeline-node"></div>
-                    <div class="time-badge">09.00 – 11.00</div>
-                    <div class="activity-title">Aktivitas Opsional</div>
-                    <div class="activity-desc">Jalan kaki ke area Karang Warna (sebelah Legon Pari) untuk foto-foto tambahan, atau sekadar bersantai di depan cabin.</div>
-                </div>
-
-                <div class="timeline-item" onclick="toggleTask(this)">
-                    <div class="timeline-node"></div>
-                    <div class="time-badge">11.00 – 12.00</div>
-                    <div class="activity-title">Packing dan Check-out</div>
-                    <div class="activity-desc">Meninggalkan Cabin Legon Pari.</div>
-                </div>
-
-                <div class="timeline-item" onclick="toggleTask(this)">
-                    <div class="timeline-node"></div>
-                    <div class="time-badge">12.00 – 13.00</div>
-                    <div class="activity-title">Makan Siang</div>
-                    <div class="activity-desc">Dilakukan sebelum memulai perjalanan jauh.</div>
-                </div>
-
-                <div class="timeline-item" onclick="toggleTask(this)">
-                    <div class="timeline-node"></div>
-                    <div class="time-badge">13.00 – 17.30</div>
-                    <div class="activity-title">Perjalanan Naik Motor Kembali ke Serang</div>
-                    <div class="activity-desc">(Lebih aman jalan siang agar melewati jalur Gunung Kencana/Pandeglang sebelum gelap).</div>
-                </div>
-
             </div>
-        </section>
+            <div class="item" onclick="toggleItem(this, 'item4')">
+                <div class="checkbox-custom"></div>
+                <div class="item-content">
+                    <span class="time">12.30 – 13.00</span>
+                    <div class="title">Menuju Penginapan Pertama</div>
+                    <div class="desc">(Area Ciantir/Tanjung Layar), check-in, mandi, dan istirahat.</div>
+                </div>
+            </div>
+            <div class="item" onclick="toggleItem(this, 'item5')">
+                <div class="checkbox-custom"></div>
+                <div class="item-content">
+                    <span class="time">15.30 – 18.00</span>
+                    <div class="title">Ke Pantai Tanjung Layar</div>
+                    <div class="desc">(Berjalan kaki/motor ke area karang saat air surut untuk foto berdua & menikmati sunset).</div>
+                </div>
+            </div>
+            <div class="item" onclick="toggleItem(this, 'item6')">
+                <div class="checkbox-custom"></div>
+                <div class="item-content">
+                    <span class="time">19.00 – Selesai</span>
+                    <div class="title">Makan Malam & Istirahat Total</div>
+                    <div class="desc">Di sekitar penginapan.</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    </main>
+    <!-- 5. HARI 2 -->
+    <div class="day-card">
+        <div class="day-header day-2">
+            <h2>Hari 2: Karang Taraje & Pindah Cabin Legon Pari</h2>
+            <span class="badge">PINDAH SPOT</span>
+        </div>
+        <div class="timeline">
+            <div class="item" onclick="toggleItem(this, 'item7')">
+                <div class="checkbox-custom"></div>
+                <div class="item-content">
+                    <span class="time">05.30 – 06.00</span>
+                    <div class="title">Bangun Pagi dan Bersiap</div>
+                    <div class="desc">Persiapan agenda pagi hari.</div>
+                </div>
+            </div>
+            <div class="item" onclick="toggleItem(this, 'item8')">
+                <div class="checkbox-custom"></div>
+                <div class="item-content">
+                    <span class="time">06.00 – 08.00</span>
+                    <div class="title">Berkendara ke Pantai Karang Taraje</div>
+                    <div class="desc">(Melihat ombak air terjun karang saat pagi).</div>
+                </div>
+            </div>
+            <div class="item" onclick="toggleItem(this, 'item9')">
+                <div class="checkbox-custom"></div>
+                <div class="item-content">
+                    <span class="time">08.00 – 09.30</span>
+                    <div class="title">"Slow Morning" & Ngopi</div>
+                    <div class="desc">Menikmati pagi yang santai di teras penginapan pertama sembari menyeduh kopi/teh sachet bawaan sendiri dan menyortir foto-foto kemarin.</div>
+                </div>
+            </div>
+            <div class="item" onclick="toggleItem(this, 'item10')">
+                <div class="checkbox-custom"></div>
+                <div class="item-content">
+                    <span class="time">10.00 – 11.30</span>
+                    <div class="title">Kembali ke Penginapan Pertama</div>
+                    <div class="desc">Bersiap, packing, dan check-out.</div>
+                </div>
+            </div>
+            <div class="item" onclick="toggleItem(this, 'item11')">
+                <div class="checkbox-custom"></div>
+                <div class="item-content">
+                    <span class="time">11.30 – 12.30</span>
+                    <div class="title">Perjalanan dan Check-in</div>
+                    <div class="desc">Menuju ke Cabin Legon Pari.</div>
+                </div>
+            </div>
+            <div class="item" onclick="toggleItem(this, 'item12')">
+                <div class="checkbox-custom"></div>
+                <div class="item-content">
+                    <span class="time">12.30 – 15.30</span>
+                    <div class="title">Makan Siang dan Istirahat Siang</div>
+                    <div class="desc">Di area Legon Pari.</div>
+                </div>
+            </div>
+            <div class="item" onclick="toggleItem(this, 'item13')">
+                <div class="checkbox-custom"></div>
+                <div class="item-content">
+                    <span class="time">16.00 – 18.00</span>
+                    <div class="title">Menuju Pantai Ciantir</div>
+                    <div class="desc">Untuk menikmati sunset terakhir di hamparan pasir putih yang luas.</div>
+                </div>
+            </div>
+            <div class="item" onclick="toggleItem(this, 'item14')">
+                <div class="checkbox-custom"></div>
+                <div class="item-content">
+                    <span class="time">18.30 – Selesai</span>
+                    <div class="title">Kembali ke Legon Pari</div>
+                    <div class="desc">Makan malam dan istirahat.</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- Footer Peta Panduan -->
-    <footer>
-        <p>Tip: Ketuk pada baris kegiatan untuk menandai jadwal yang sudah selesai dilakukan.</p>
-        <p style="margin-top: 0.5rem; color: #94a3b8;">© 2026 Sawarna Road Trip Guide • Clean Responsive Design</p>
-    </footer>
+    <!-- 6. HARI 3 -->
+    <div class="day-card">
+        <div class="day-header day-3">
+            <h2>Hari ke 3: Sunrise Legon Pari & Pulang</h2>
+            <span class="badge">RUTE PULANG</span>
+        </div>
+        <div class="timeline">
+            <div class="item" onclick="toggleItem(this, 'item15')">
+                <div class="checkbox-custom"></div>
+                <div class="item-content">
+                    <span class="time">05.00 – 07.00</span>
+                    <div class="title">Pantai Legon Pari</div>
+                    <div class="desc">(Cukup jalan kaki dari cabin untuk mengejar sunrise dan menikmati pantai teluk yang tenang).</div>
+                </div>
+            </div>
+            <div class="item" onclick="toggleItem(this, 'item16')">
+                <div class="checkbox-custom"></div>
+                <div class="item-content">
+                    <span class="time">07.30 – 09.00</span>
+                    <div class="title">Sarapan dan Mandi</div>
+                    <div class="desc">Persiapan sebelum check-out.</div>
+                </div>
+            </div>
+            <div class="item" onclick="toggleItem(this, 'item17')">
+                <div class="checkbox-custom"></div>
+                <div class="item-content">
+                    <span class="time">09.00 – 11.00</span>
+                    <div class="title">Aktivitas Opsional</div>
+                    <div class="desc">Jalan kaki ke area Karang Warna (sebelah Legon Pari) untuk foto-foto tambahan, atau sekadar bersantai di depan cabin.</div>
+                </div>
+            </div>
+            <div class="item" onclick="toggleItem(this, 'item18')">
+                <div class="checkbox-custom"></div>
+                <div class="item-content">
+                    <span class="time">11.00 – 12.00</span>
+                    <div class="title">Packing dan Check-out</div>
+                    <div class="desc">Meninggalkan Cabin Legon Pari.</div>
+                </div>
+            </div>
+            <div class="item" onclick="toggleItem(this, 'item19')">
+                <div class="checkbox-custom"></div>
+                <div class="item-content">
+                    <span class="time">12.00 – 13.00</span>
+                    <div class="title">Makan Siang</div>
+                    <div class="desc">Dilakukan sebelum memulai perjalanan jauh.</div>
+                </div>
+            </div>
+            <div class="item" onclick="toggleItem(this, 'item20')">
+                <div class="checkbox-custom"></div>
+                <div class="item-content">
+                    <span class="time">13.00 – 17.30</span>
+                    <div class="title">Perjalanan Naik Motor Kembali ke Serang</div>
+                    <div class="desc">(Lebih aman jalan siang agar melewati jalur Gunung Kencana/Pandeglang sebelum gelap).</div>
+                </div>
+            </div>
+        </div>
 
-    <!-- --- JAVASCRIPT INTERNAL --- -->
-    <script>
-        function toggleTask(element) {
-            element.classList.toggle('done');
-        }
-    </script>
-</body>
-</html>
+        <div class="note-box">
+            <strong>📌 Catatan Penting:</strong>
+            Jangan sampai ada barang yang ketinggalan ya cayang, terutama hati kamu... jangan sampai tertinggal di Sawarna! 🤪💖
+        </div>
+    </div>
