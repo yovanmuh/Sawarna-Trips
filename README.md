@@ -1,4 +1,3 @@
-@@ -0,0 +1,636 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
